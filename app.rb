@@ -23,12 +23,13 @@ end
 
 # CREATE A CLient
 client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-client = Particle::Client.new ENV['PARTICLE_ACCESS_TOKEN']
+particle_client = Particle::Client.new( access_token: ENV['PARTICLE_ACCESS_TOKEN'] )
+
 
 # # Fetch the list of devices using a newly created client
-# client = Particle::Client.new
+# particle_client = Particle::Client.new
 # # Fetch the list of devices
-# client.devices
+# particle_client.devices
 
 # device = Particle.device('betch')
 
