@@ -70,9 +70,15 @@ get '/incoming_sms' do
 
   if session["counter"] < 1
     message = "Food Waster: Thanks for your first message. From #{sender} saying #{body}"
+    
   else
     message = "Food Waster: message number #{ count }. From #{sender} saying #{body}"
+    
+    
   end
+
+  client.publish(name: "smart_food/sms/incoming/#{sender}", data: "message received", ttl: 3600, private: true)
+
   
   session["counter"] += 1
   
