@@ -74,10 +74,9 @@ get '/incoming_sms' do
   else
     message = "Food Waster: message number #{ count }. From #{sender} saying #{body}"
     
-    
   end
 
-  particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: "message received", ttl: 3600, private: true)
+  particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: "message received")
 
   
   session["counter"] += 1
