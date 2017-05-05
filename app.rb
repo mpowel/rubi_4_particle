@@ -4,11 +4,14 @@ require 'shotgun'
 require 'active_support/all'
 require "active_support/core_ext"
 require 'rake'
+
+require 'particle'  # require particle gem to talk to the photon
+require 'twilio-ruby'  # connect to twilio
+
 # require 'sinatra/activerecord'
 # require 'pg'
 
-require 'twilio-ruby'
-require 'giphy'
+
 
 # Load environment variables using Dotenv. If a .env file exists, it will
 # set environment variables from that file (useful for dev environments)
@@ -20,6 +23,15 @@ end
 
 # CREATE A CLient
 client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+client = Particle::Client.new ENV['PARTICLE_ACCESS_TOKEN']
+
+# # Fetch the list of devices using a newly created client
+# client = Particle::Client.new
+# # Fetch the list of devices
+# client.devices
+
+# device = Particle.device('betch')
+
 
 # Use this method to check if your ENV file is set up
 get "/" do

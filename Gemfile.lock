@@ -18,6 +18,10 @@ GEM
     dotenv (2.0.1)
     dotenv-rails (2.0.1)
       dotenv (= 2.0.1)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.2)
+      faraday (>= 0.7.4, < 0.10)
     haml (4.0.7)
       tilt
     i18n (0.7.0)
@@ -25,6 +29,10 @@ GEM
     jwt (1.5.6)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
+    particlerb (0.0.4)
+      faraday (~> 0.9.0)
+      faraday_middleware (~> 0.9.0)
     pg (0.19.0)
     rack (1.6.5)
     rack-protection (1.5.3)
@@ -60,6 +68,7 @@ DEPENDENCIES
   dotenv-rails
   haml
   json
+  particlerb (~> 0.0.3)
   pg
   rake
   shotgun
@@ -68,5 +77,8 @@ DEPENDENCIES
   sqlite3
   twilio-ruby
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.13.6
+   1.14.6

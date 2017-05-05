@@ -1,5 +1,23 @@
 # CLI commands needed to get this started: 
 
+
+
+
+Particle integration
+https://github.com/monkbroc/particlerb
+
+$ particle token new
+New access token expires on Thu Aug 03 2017 13:38:55 GMT-0400 (EDT)
+    8b9e14118080c32ccdae8298cd3321fe7ee13cab
+	
+
+	
+
+
+
+
+
+
 # curl -H "Content-Type: json" -X POST -F "title=Principles of good RESTful API Design" -F "url=https://codeplanet.io/principles-good-restful-api-design/" http://localhost:9393/course_links
 # curl -X POST -F 'title=test' -F 'url=test' http://localhost:9393/course_links
 # curl -X PUT -F 'title=new' -F 'id=100' http://localhost:9393/course_links/13
@@ -12,8 +30,10 @@
 
 
 # git push heroku master
+# heroku open
 # heroku config
 # heroku login
+# https://devcenter.heroku.com/articles/getting-started-with-ruby#deploy-the-app
 
 # POSTGRESQL
 # heroku addons:create heroku-postgresql

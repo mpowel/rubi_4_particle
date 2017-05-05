@@ -1,3 +1,4 @@
+ruby '2.3.1'
 source 'https://rubygems.org'
 
 gem 'sinatra'
@@ -27,3 +28,4 @@ end
 
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'twilio-ruby'
+gem "particlerb", "~> 0.0.3"  # connect ruby to particle photon
