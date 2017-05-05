@@ -69,9 +69,9 @@ get '/incoming_sms' do
   body = body.downcase.strip
 
   if session["counter"] < 1
-    message = "Thanks for your first message. From #{sender} saying #{body}"
+    message = "Food Waster: Thanks for your first message. From #{sender} saying #{body}"
   else
-    message = "Thanks for message number #{ count }. From #{sender} saying #{body}"
+    message = "Food Waster: message number #{ count }. From #{sender} saying #{body}"
   end
   
   session["counter"] += 1
