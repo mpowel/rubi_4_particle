@@ -1,0 +1,65 @@
+# CLI commands needed to get this started: 
+
+# curl -H "Content-Type: json" -X POST -F "title=Principles of good RESTful API Design" -F "url=https://codeplanet.io/principles-good-restful-api-design/" http://localhost:9393/course_links
+# curl -X POST -F 'title=test' -F 'url=test' http://localhost:9393/course_links
+# curl -X PUT -F 'title=new' -F 'id=100' http://localhost:9393/course_links/13
+# curl -X DELETE  http://localhost:9393/course_links/13
+# curl -X POST -F 'title=test5' -F 'url=test4' http://localhost:9393/course_links
+# curl -X PUT -F 'week_id=1' http://localhost:9393/week/1
+# curl -X PUT -F 'week_id=1' http://localhost:9393/week/31
+# curl -X POST http://127.0.0.1:9393/test_event -F token=ipVjny8vUYOauoH7AhH3an6X -F team_id=T2QJ6HA0Z -F event_type=message -F event_user=U2QHR0F7W -F event_channel=D37HZB04D -F event_ts=1480296595.000007 -F event_text='g ddf;gkl;d fkg;ldfkg df' 
+# curl -X POST http://127.0.0.1:9393/test_event -F token=ipVjny8vUYOauoH7AhH3an6X -F team_id=T2QJ6HA0Z -F event_type=message -F event_user=U2QHR0F7W -F event_channel=D37HZB04D -F event_ts=1480296595.000007 -F event_text='g ddf;gkl;d fkg;ldfkg df'
+
+
+# git push heroku master
+# heroku config
+# heroku login
+
+# POSTGRESQL
+# heroku addons:create heroku-postgresql
+# heroku ps:scale web=1
+# sudo gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.6/bin/pg_config
+# heroku addons:create heroku-postgresql
+
+# TWILIO
+# https://www.youtube.com/watch?v=rm8RdU232yU
+# https://daraghbyrne.github.io/onlineprototypes2016/resources/#week-3
+# heroku config:set TWILIO_FROM="+14152002424
+# heroku config:set TWILIO_AUTH_TOKEN=90bb703d8cfa47898bb96e4d9f55787b
+# heroku config:set TWILIO_ACCOUNT_SID=AC91d54f51a92ecf9983938f72d7fc1381
+# rake db:schema:dump
+
+
+#SLACK
+# heroku config:set SLACK_BOT_USER="alfredthebotler"
+# heroku config:set SLACK_BOT_USER="alfred"
+# heroku open
+# heroku create
+# heroku logs | less
+# heroku logs --tail
+# heroku run rake db:seed
+# heroku run rake db:migrate
+
+# shotgun app.rb
+# shotgun config.ru
+
+# sudo bundle install
+# bundle install --without production
+# bundle install --production
+
+# rake -T
+# rake db:seed
+# rake db:create_migration NAME='add_contacts_table'
+# rake db:rollback
+# rake db:create
+
+# ruby app.rb
+
+# gem install giphy
+# sudo gem bundle update
+# gem update bundler
+# gem list
+
+# git add .
+# git init
+# git push heroku master
