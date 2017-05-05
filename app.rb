@@ -67,16 +67,21 @@ get '/incoming_sms' do
   sender = params[:From] || ""
   body = params[:Body] || ""
   body = body.downcase.strip
+  
+  event_data = ""
 
-  if session["counter"] < 1
-    message = "Food Waster: Thanks for your first message. From #{sender} saying #{body}"
-    
-  else
-    message = "Food Waster: message number #{ count }. From #{sender} saying #{body}"
+  if not defined? session["last_context"] or session["last_context"] == nil
+    session["last_context"] = "num_days"
+    event_data = "foodtype:#{ body }"
+    message = "Please enter a number to set the number of days of the timer"
+  elsif session["last_context"] == "num_days"
+    session["last_context"] = null
+    event_data = "numdays:#{ body }"
+    message = "Your timer is set for #{body} days. Great!"
     
   end
 
-  particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: "message received")
+  particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: event_data)
 
   
   session["counter"] += 1
