@@ -12,6 +12,11 @@ require 'twilio-ruby'  # connect to twilio
 # require 'pg'
 
 
+# enable sessions for this project
+
+enable :sessions
+
+
 
 # Load environment variables using Dotenv. If a .env file exists, it will
 # set environment variables from that file (useful for dev environments)
@@ -70,6 +75,7 @@ get '/incoming_sms' do
   
   event_data = ""
 
+  print session["counter"]
   print session["last_context"]
 
   if get_context == "num_days"
@@ -85,7 +91,6 @@ get '/incoming_sms' do
 
   particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: event_data)
 
-  
   session["counter"] += 1
   
   twiml = Twilio::TwiML::Response.new do |r|
