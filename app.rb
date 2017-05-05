@@ -70,14 +70,14 @@ get '/incoming_sms' do
   
   event_data = ""
 
-  if not defined? session["last_context"] or session["last_context"] == nil
+  if defined? session["last_context"] and session["last_context"] == "num_days"
+      session["last_context"] = nil
+      event_data = "numdays:#{ body }"
+      message = "Your timer is set for #{body} days. Great!"
+  elsif not defined? session["last_context"] or session["last_context"] == nil
     session["last_context"] = "num_days"
     event_data = "foodtype:#{ body }"
     message = "Please enter a number to set the number of days of the timer"
-  elsif session["last_context"] == "num_days"
-    session["last_context"] = nil
-    event_data = "numdays:#{ body }"
-    message = "Your timer is set for #{body} days. Great!"
     
   end
 
