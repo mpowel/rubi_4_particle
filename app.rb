@@ -70,11 +70,13 @@ get '/incoming_sms' do
   
   event_data = ""
 
-  if defined? session["last_context"] and session["last_context"] == "num_days"
+  print session["last_context"]
+
+  if get_context == "num_days"
       session["last_context"] = nil
       event_data = "numdays:#{ body }"
       message = "Your timer is set for #{body} days. Great!"
-  elsif not defined? session["last_context"] or session["last_context"] == nil
+  elsif not defined? session["last_context"] or get_context == nil
     session["last_context"] = "num_days"
     event_data = "foodtype:#{ body }"
     message = "Please enter a number to set the number of days of the timer"
@@ -99,4 +101,9 @@ end
 error 401 do 
   "Not allowed!!!"
 end
+
+def get_context
+  
+  session["last_context"] || nil
+end 
 
