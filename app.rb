@@ -79,20 +79,24 @@ get '/incoming_sms' do
   #   message = "Enter a number to set my timer. # of days consider it spoiled?"
   # end
   
-  if body.starts_with? "set"
+  if not defined? session["last_context"] or get_context == nil
+    event_data = "error:#{ body}"
+    message = "Sorry, I did not get that. Type SET to adjust the timer. Otherwise, put me in the fridge."
+  elsif body.include? "stop"
+    event_data = "stop:#{ body }"
+    message = "Notifications have been turned off."
+  elsif body.starts_with? "set"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
   elsif body_toint < 4
     event_data = "numdays_short:#{ body }"
     message = "Timer set for #{ body } days. You can now place me in the fridge. Fun fact, savethefood.com says aside from raw meats most food can be stored more than 3 days. To reset timer, type any number >3."
   elsif body_toint >= 4
-    session["last_context"] = nil
     event_data = "numdays_OK:#{ body }"
     message = "Great! Your timer is set for #{body} days. Go ahead and place me in the fridge."
-  # else
-  #   session["last_context"] = "error_message"
-  #   event_data = "error:#{ body }"
-  #   message = "Sorry, I didn't get that."
+  else
+    event_data = "numerror:#{ body }"
+    message = "Sorry, I didn't get that. Enter a value 1-30 or place me in the fridge."
   end
 
   particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: event_data)
