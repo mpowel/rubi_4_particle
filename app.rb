@@ -79,10 +79,8 @@ get '/incoming_sms' do
   #   message = "Enter a number to set my timer. # of days consider it spoiled?"
   # end
   
-  if not defined? session["last_context"] or get_context == nil
-    event_data = "error:#{ body}"
-    message = "Sorry, I did not get that. Type SET to adjust the timer. Otherwise, put me in the fridge."
-  elsif body.include? "stop"
+  
+  if body.include? "stop"
     event_data = "stop:#{ body }"
     message = "Notifications have been turned off."
   elsif body.starts_with? "set"
@@ -94,6 +92,9 @@ get '/incoming_sms' do
   elsif body_toint >= 4
     event_data = "numdays_OK:#{ body }"
     message = "Great! Your timer is set for #{body} days. Go ahead and place me in the fridge."
+  elsif not defined? session["last_context"] or get_context == nil
+      event_data = "error:#{ body}"
+      message = "Sorry, I did not get that. Type SET to adjust the timer. Otherwise, put me in the fridge."
   else
     event_data = "numerror:#{ body }"
     message = "Sorry, I didn't get that. Enter a value 1-30 or place me in the fridge."
