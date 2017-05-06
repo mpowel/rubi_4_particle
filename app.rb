@@ -80,19 +80,15 @@ get '/incoming_sms' do
   # end
   
   if body.starts_with? "set"
-    # session["last_context"] = "set_by_user"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
   elsif body_toint < 4
-    # numdays_short = body.gsub( "delete contact", "" ).strip
-    # session["last_context"] = nil
     event_data = "numdays_short:#{ body }"
     message = "Timer set for #{ body } days. You can now place me in the fridge. Fun fact, savethefood.com says aside from raw meats most food can be stored more than 3 days. To reset timer, type any number >3."
-  # elsif get_context == "set_by_user" and event_data. >= 4
-#     session["last_context"] = nil
-#     event_data = "numdays_OK:#{ body }"
-#     message = "Great! Your timer is set for #{body} days. Go ahead and place me in the fridge."
-    #
+  elsif body_toint >= 4
+    session["last_context"] = nil
+    event_data = "numdays_OK:#{ body }"
+    message = "Great! Your timer is set for #{body} days. Go ahead and place me in the fridge."
   # else
   #   session["last_context"] = "error_message"
   #   event_data = "error:#{ body }"
