@@ -83,10 +83,10 @@ get '/incoming_sms' do
     session["last_context"] = nil
     event_data = "numdays_short:#{ body }"
     message = "Timer set for {body}. You can now place me in the fridge. Fun fact, savethefood.com says aside from raw meats most food can be stored more than 3 days. To reset timer, type any number >3."
-  elsif get_context == "set_by_user" and event_data. >= 4
-    session["last_context"] = nil
-    event_data = "numdays_OK:#{ body }"
-    message = "Great! Your timer is set for {body} days. Go ahead and place me in the fridge."
+  # elsif get_context == "set_by_user" and event_data. >= 4
+#     session["last_context"] = nil
+#     event_data = "numdays_OK:#{ body }"
+#     message = "Great! Your timer is set for {body} days. Go ahead and place me in the fridge."
     #
   # else
   #   session["last_context"] = "error_message"
