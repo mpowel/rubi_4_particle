@@ -68,26 +68,30 @@ get '/incoming_sms' do
   #     session["last_context"] = "timer_too_short"
   #     event_data = "shorttimer:#{ body }"
   #     message = "Are you sure? savethefood.com recommends 7-10 days for fruit, veggies, & opened dairy and 2-3 for raw meat or fish. Reply YES to confirm or NO to reset."
-  if get_context == "num_days"
-      session["last_context"] = nil
-      event_data = "numdays:#{ body }"
-      message = "Great! Your timer is now set for #{body} days. "
-  elsif not defined? session["last_context"] or get_context == nil
-    session["last_context"] = "num_days"
-    event_data = "foodtype:#{ body }"
-    message = "Enter a number to set my timer. # of days consider it spoiled?"
-  end
-  
   # if get_context == "num_days"
-#       session["last_context"] = nil
-#       event_data = "numdays:#{ body }"
-#       message = "Great! Your timer is now set for #{body} days. "
-#       message = "I'll monitor your food with my digital sniffer and 12 hours before #{body} days are up, I'll remind you "
-#   elsif not defined? session["last_context"] or get_context == nil
-#     session["last_context"] = "num_days"
-#     event_data = "foodtype:#{ body }"
-#     message = "Did you know? Food waste costs the average American family up to $2,000/year, but not you! You made the smart choice with smartware. ;) "
-#   end
+  #     session["last_context"] = nil
+  #     event_data = "numdays:#{ body }"
+  #     message = "Great! Your timer is now set for #{body} days. "
+  # elsif not defined? session["last_context"] or get_context == nil
+  #   session["last_context"] = "num_days"
+  #   event_data = "foodtype:#{ body }"
+  #   message = "Enter a number to set my timer. # of days consider it spoiled?"
+  # end
+  
+  if not defined? session["last_context"] or get_context == nil
+    session["last_context"] = "set_by_user"
+    event_data = "settime:#{ body }"
+    message = "Enter a value 1-30 to set the number of days for the timer."
+  elsif get_context == "set_by_user"
+    session["last_context"] = nil
+    event_data = "numdays:#{ body }"
+    message = "Great! Your timer is now set for #{body} days. "
+    #
+  # else
+  #   session["last_context"] = "error_message"
+  #   event_data = "error:#{ body }"
+  #   message = "Sorry, I didn't get that."
+  end
 
   particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: event_data)
 
