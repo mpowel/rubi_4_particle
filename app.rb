@@ -75,11 +75,11 @@ get '/incoming_sms' do
   #   message = "Enter a number to set my timer. # of days consider it spoiled?"
   # end
   
-  if event_data.starts_with? "set"
+  if body.starts_with? "set"
     # session["last_context"] = "set_by_user"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
-  elsif event_data < 4
+  elsif body < 4
     session["last_context"] = nil
     event_data = "numdays_short:#{ body }"
     message = "Timer set for #{ body } days. You can now place me in the fridge. Fun fact, savethefood.com says aside from raw meats most food can be stored more than 3 days. To reset timer, type any number >3."
