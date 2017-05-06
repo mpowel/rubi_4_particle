@@ -79,7 +79,7 @@ get '/incoming_sms' do
     # session["last_context"] = "set_by_user"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
-  elsif body.include? 1 or body.include? 2 or body.include? 3
+  elsif body == 1 or body == 2 or body == 3
     # numdays_short = body.gsub( "delete contact", "" ).strip
     # session["last_context"] = nil
     event_data = "numdays_short:#{ body }"
