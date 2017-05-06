@@ -1,3 +1,6 @@
+# deployed to https://salty-dawn-69757.herokuapp.com/
+# manage on heroku at : https://dashboard.heroku.com/apps/salty-dawn-69757/settings
+
 require 'json'
 require "sinatra"
 require 'shotgun'
