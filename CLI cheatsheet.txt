@@ -1,8 +1,6 @@
 # CLI commands needed to get this started: 
 
 
-
-
 Particle integration
 https://github.com/monkbroc/particlerb
 
@@ -10,11 +8,6 @@ $ particle token new
 New access token expires on Thu Aug 03 2017 13:38:55 GMT-0400 (EDT)
     8b9e14118080c32ccdae8298cd3321fe7ee13cab
 	
-
-	
-
-
-
 
 
 

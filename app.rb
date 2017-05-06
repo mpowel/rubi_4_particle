@@ -64,10 +64,7 @@ get '/incoming_sms' do
   print session["counter"]
   print session["last_context"]
 
-  # if get_context != nil and event_data < 4 and > 1
-  #     session["last_context"] = "timer_too_short"
-  #     event_data = "shorttimer:#{ body }"
-  #     message = "Are you sure? savethefood.com recommends 7-10 days for fruit, veggies, & opened dairy and 2-3 for raw meat or fish. Reply YES to confirm or NO to reset."
+
   # if get_context == "num_days"
   #     session["last_context"] = nil
   #     event_data = "numdays:#{ body }"
@@ -82,10 +79,14 @@ get '/incoming_sms' do
     session["last_context"] = "set_by_user"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
-  elsif get_context == "set_by_user"
+  elsif get_context == "set_by_user" and event_data. < 4
     session["last_context"] = nil
-    event_data = "numdays:#{ body }"
-    message = "Great! Your timer is now set for #{body} days. "
+    event_data = "numdays_short:#{ body }"
+    message = "Timer set for {body}. You can now place me in the fridge. Fun fact, savethefood.com says aside from raw meats most food can be stored more than 3 days. To reset timer, type any number >3."
+  elsif get_context == "set_by_user" and event_data. >= 4
+    session["last_context"] = nil
+    event_data = "numdays_OK:#{ body }"
+    message = "Great! Your timer is set for {body} days. Go ahead and place me in the fridge."
     #
   # else
   #   session["last_context"] = "error_message"
@@ -112,7 +113,6 @@ error 401 do
 end
 
 def get_context
-  
   session["last_context"] || nil
 end 
 
