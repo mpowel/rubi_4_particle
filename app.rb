@@ -61,6 +61,7 @@ get '/incoming_sms' do
   sender = params[:From] || ""
   body = params[:Body] || ""
   body = body.downcase.strip
+  body_toint = body.to_i
   
   event_data = ""
 
@@ -82,7 +83,7 @@ get '/incoming_sms' do
     # session["last_context"] = "set_by_user"
     event_data = "settime:#{ body }"
     message = "Enter a value 1-30 to set the number of days for the timer."
-  elsif body == "1" or body == "2" or body == "3"
+  elsif body_toint < 4
     # numdays_short = body.gsub( "delete contact", "" ).strip
     # session["last_context"] = nil
     event_data = "numdays_short:#{ body }"
