@@ -4,18 +4,12 @@ require 'shotgun'
 require 'active_support/all'
 require "active_support/core_ext"
 require 'rake'
-
 require 'particle'  # require particle gem to talk to the photon
 require 'twilio-ruby'  # connect to twilio
 
-# require 'sinatra/activerecord'
-# require 'pg'
-
 
 # enable sessions for this project
-
 enable :sessions
-
 
 
 # Load environment variables using Dotenv. If a .env file exists, it will
@@ -29,14 +23,6 @@ end
 # CREATE A CLient
 client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
 particle_client = Particle::Client.new( access_token: ENV['PARTICLE_ACCESS_TOKEN'] )
-
-
-# # Fetch the list of devices using a newly created client
-# particle_client = Particle::Client.new
-# # Fetch the list of devices
-# particle_client.devices
-
-# device = Particle.device('betch')
 
 
 # Use this method to check if your ENV file is set up
@@ -78,16 +64,30 @@ get '/incoming_sms' do
   print session["counter"]
   print session["last_context"]
 
-  if get_context == "num_days"
+  if event_data < 4
+      session["last_context"] = "timer_too_short"
+      event_data = "shorttimer:#{ body }"
+      message = "Are you sure? savethefood.com recommends 7-10 days for fruit, veggies, & opened dairy and 2-3 for raw meat or fish. Reply YES to confirm or NO to reset."
+  elsif get_context == "num_days"
       session["last_context"] = nil
       event_data = "numdays:#{ body }"
-      message = "Your timer is set for #{body} days. Great!"
+      message = "Great! Your timer is now set for #{body} days. "
   elsif not defined? session["last_context"] or get_context == nil
     session["last_context"] = "num_days"
     event_data = "foodtype:#{ body }"
-    message = "Please enter a number to set the number of days of the timer"
-    
+    message = "Enter a number to set my timer. # of days consider it spoiled?"
   end
+  
+  # if get_context == "num_days"
+#       session["last_context"] = nil
+#       event_data = "numdays:#{ body }"
+#       message = "Great! Your timer is now set for #{body} days. "
+#       message = "I'll monitor your food with my digital sniffer and 12 hours before #{body} days are up, I'll remind you "
+#   elsif not defined? session["last_context"] or get_context == nil
+#     session["last_context"] = "num_days"
+#     event_data = "foodtype:#{ body }"
+#     message = "Did you know? Food waste costs the average American family up to $2,000/year, but not you! You made the smart choice with smartware. ;) "
+#   end
 
   particle_client.publish(name: "smart_food/sms/incoming/#{sender}", data: event_data)
 
@@ -104,7 +104,7 @@ get '/incoming_sms' do
 end
 
 error 401 do 
-  "Not allowed!!!"
+  "Sorry, I didn't get that."
 end
 
 def get_context
