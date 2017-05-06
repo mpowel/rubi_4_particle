@@ -64,11 +64,11 @@ get '/incoming_sms' do
   print session["counter"]
   print session["last_context"]
 
-  if get_context != nil and event_data < 4 and > 1
-      session["last_context"] = "timer_too_short"
-      event_data = "shorttimer:#{ body }"
-      message = "Are you sure? savethefood.com recommends 7-10 days for fruit, veggies, & opened dairy and 2-3 for raw meat or fish. Reply YES to confirm or NO to reset."
-  elsif get_context == "num_days"
+  # if get_context != nil and event_data < 4 and > 1
+  #     session["last_context"] = "timer_too_short"
+  #     event_data = "shorttimer:#{ body }"
+  #     message = "Are you sure? savethefood.com recommends 7-10 days for fruit, veggies, & opened dairy and 2-3 for raw meat or fish. Reply YES to confirm or NO to reset."
+  if get_context == "num_days"
       session["last_context"] = nil
       event_data = "numdays:#{ body }"
       message = "Great! Your timer is now set for #{body} days. "
